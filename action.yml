@@ -1,10 +1,13 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: generate-markdown-table
+description: Generates a Markdown table
+author: lee-dohm
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  inputFilename:
+    description: File containing JSON information to turn into a Markdown table
+    required: true
+outputs:
+  outputFilename:
+    description: File containing the generated Markdown
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'lib/main.js'
