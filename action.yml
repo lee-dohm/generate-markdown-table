@@ -2,12 +2,15 @@ name: generate-markdown-table
 description: Generates a Markdown table
 author: lee-dohm
 inputs:
-  inputFilename:
-    description: File containing JSON information to turn into a Markdown table
+  inputPath:
+    description: Path to file containing JSON information to turn into a Markdown table
     required: true
+  outputPath:
+    description: Path to file containing the generated Markdown
+    required: false
 outputs:
-  outputFilename:
-    description: File containing the generated Markdown
+  outputPath:
+    description: Path to file containing the generated Markdown
 runs:
   using: 'node12'
   main: 'lib/main.js'
