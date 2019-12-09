@@ -5,6 +5,7 @@ import * as path from 'path'
 import * as process from 'process'
 import * as util from 'util'
 
+const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
 
 function execAction() {
@@ -26,6 +27,7 @@ describe('generate-markdown-table', () => {
 
   it('generates a default outputPath from the inputPath', () => {
     process.env['INPUT_INPUTPATH'] = inputPath
+    delete process.env['INPUT_OUTPUTPATH']
 
     const output = execAction()
 
@@ -39,5 +41,28 @@ describe('generate-markdown-table', () => {
     const output = execAction()
 
     expect(output).toMatch(`::set-output name=outputPath,::${os.tmpdir()}/alice.md`)
+  })
+
+  it('converts a basic table', async () => {
+    await writeFile(
+      inputPath,
+      JSON.stringify({
+        data: [
+          ['foo', 'bar', 'baz'],
+          ['foo', 'bar', 'baz']
+        ]
+      })
+    )
+
+    process.env['INPUT_INPUTPATH'] = inputPath
+    delete process.env['INPUT_OUTPUTPATH']
+
+    execAction()
+    const outputPath = `${os.tmpdir()}/foo.md`
+    const table = await readFile(outputPath, 'utf8')
+
+    expect(table).toBe(`| foo | bar | baz |
+| --- | --- | --- |
+| foo | bar | baz |`)
   })
 })
