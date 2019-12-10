@@ -43,7 +43,7 @@ You can pass options to `markdown-table` using the `options` field:
 
 ### Inputs
 
-* `inputPath` **required** -- Path where the JSON defining the data and options is stored
+* `inputPath` **required** -- Path where the JSON defining the data and options is stored. The file must be encoded as UTF-8.
 * `outputPath` -- Path where the Markdown will be stored. Defaults to `inputPath` minus any extension plus `.md`.
 
 ### Outputs
